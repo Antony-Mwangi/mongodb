@@ -77,7 +77,7 @@ export default function Home() {
         }
 
         body {
-          background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+          background: #f0f7f7;
           margin: 0;
           padding: 0;
         }
@@ -85,22 +85,22 @@ export default function Home() {
         .container {
           max-width: 480px;
           margin: 80px auto;
-          background: #fff;
+          background: #ffffff;
           padding: 40px 30px;
           border-radius: 20px;
-          box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+          box-shadow: 0 15px 30px rgba(0,0,0,0.08);
           transition: all 0.3s ease-in-out;
         }
 
         .container:hover {
-          box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+          box-shadow: 0 20px 40px rgba(0,0,0,0.12);
         }
 
         h1 {
           text-align: center;
           margin-bottom: 30px;
           font-size: 28px;
-          color: #4f46e5;
+          color: #00bfa5;
         }
 
         .input-group {
@@ -113,22 +113,22 @@ export default function Home() {
           flex: 1;
           padding: 14px 16px;
           border-radius: 12px;
-          border: 1px solid #ddd;
+          border: 1px solid #b2dfdb;
           font-size: 15px;
           transition: 0.3s;
         }
 
         input:focus {
           outline: none;
-          border-color: #4f46e5;
-          box-shadow: 0 0 8px rgba(79,70,229,0.2);
+          border-color: #00bfa5;
+          box-shadow: 0 0 8px rgba(0,191,165,0.2);
         }
 
         button {
           padding: 14px 20px;
           border: none;
           border-radius: 12px;
-          background: linear-gradient(90deg, #4f46e5, #6c63ff);
+          background: linear-gradient(90deg, #00bfa5, #1de9b6);
           color: #fff;
           font-weight: 600;
           cursor: pointer;
@@ -137,7 +137,7 @@ export default function Home() {
 
         button:hover {
           transform: translateY(-2px);
-          box-shadow: 0 8px 20px rgba(79,70,229,0.3);
+          box-shadow: 0 8px 20px rgba(29,233,182,0.3);
         }
 
         ul {
@@ -153,12 +153,12 @@ export default function Home() {
           padding: 14px 16px;
           border-radius: 14px;
           margin-bottom: 12px;
-          background: #f7f7fc;
+          background: #e0f2f1;
           transition: 0.3s;
         }
 
         li:hover {
-          background: #eef2ff;
+          background: #b2dfdb;
         }
 
         li span {
@@ -168,13 +168,13 @@ export default function Home() {
         }
 
         li span:hover {
-          color: #4f46e5;
+          color: #00796b;
           transform: scale(1.02);
         }
 
         li.done span {
           text-decoration: line-through;
-          color: #aaa;
+          color: #999;
         }
 
         .delete {
@@ -186,7 +186,7 @@ export default function Home() {
         }
 
         .delete:hover {
-          color: #ff4b5c;
+          color: #ff6b6b;
           transform: scale(1.2);
         }
 
