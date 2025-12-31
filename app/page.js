@@ -195,4 +195,5 @@ export default function Home() {
             margin: 40px 20px;
             padding: 30px 20px;
           }
-        
+        }
+      `}</style>
