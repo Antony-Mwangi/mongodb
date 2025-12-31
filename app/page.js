@@ -1,66 +1,89 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [todos, setTodos] = useState([]);
+  const [text, setText] = useState("");
+
+  async function fetchTodos() {
+    const res = await fetch("/api/todos");
+    setTodos(await res.json());
+  }
+
+  async function addTodo() {
+    if (!text.trim()) return;
+
+    await fetch("/api/todos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text }),
+    });
+
+    setText("");
+    fetchTodos();
+  }
+
+  async function toggleTodo(todo) {
+    await fetch("/api/todos", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: todo.id,
+        completed: !todo.completed,
+      }),
+    });
+
+    fetchTodos();
+  }
+
+  async function deleteTodo(id) {
+    await fetch("/api/todos", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+
+    fetchTodos();
+  }
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
+    <main style={{ padding: 20 }}>
+      <h1>Mongo Notes (Todo)</h1>
+
+      <input
+        placeholder="New todo..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+
+      <button onClick={addTodo}>Add</button>
+
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            <span
+              onClick={() => toggleTodo(todo)}
+              style={{
+                cursor: "pointer",
+                textDecoration: todo.completed
+                  ? "line-through"
+                  : "none",
+              }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+              {todo.text}
+            </span>
+
+            <button onClick={() => deleteTodo(todo.id)}>
+              ❌
+            </button>
+          </li>
+        ))}
+      </ul>
+    </main>
   );
 }
